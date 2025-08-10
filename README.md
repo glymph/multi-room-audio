@@ -5,9 +5,7 @@ Mopidy is an audio playback service which allows you to play files or network st
 
 ## Components
 
-### Mopidy
-
-Mopidy installation documentation is available from [https://docs.mopidy.com/stable/installation/](https://docs.mopidy.com/stable/installation/).
+### [Mopidy](https://docs.mopidy.com/stable/installation/).
 
 Once Mopidy is installed, it can be configured to use a variety of audio sources such as local files, online streams and with [various extensions](https://mopidy.com/ext/) such as [Tidal](https://mopidy.com/ext/tidal/), [Bandcamp](https://mopidy.com/ext/bandcamp/) or [Soma FM](https://mopidy.com/ext/somafm/).
 
@@ -16,6 +14,8 @@ An example line from /etc/mopidy/mopidy.conf from the audio section is shown bel
 output = audioresample ! audio/x-raw,rate=48000,channels=2,format=S16LE ! audioconvert ! wavenc ! filesink location=/tmp/snapfifo
 
 ### Snapcast
+
+Snapcast consists of a server daemon, snapserver, configured to accept an audio stream via a named pipe in this case, and multiple devices running snapclient which connect to the server 
 
 https://github.com/badaix/snapcast
 
