@@ -5,19 +5,22 @@ Mopidy is an audio playback service which allows you to play files or network st
 
 ## Components
 
-### [Mopidy](https://docs.mopidy.com/stable/installation/).
+### [Mopidy](https://docs.mopidy.com/stable/installation/)
 
 Once Mopidy is installed, it can be configured to use a variety of audio sources such as local files, online streams and with [various extensions](https://mopidy.com/ext/) such as [Tidal](https://mopidy.com/ext/tidal/), [Bandcamp](https://mopidy.com/ext/bandcamp/) or [Soma FM](https://mopidy.com/ext/somafm/).
 
 An example line from /etc/mopidy/mopidy.conf from the audio section is shown below which will send its output to the named pipe used by a Snapcast server running locally as snapserver.
-
+```
 output = audioresample ! audio/x-raw,rate=48000,channels=2,format=S16LE ! audioconvert ! wavenc ! filesink location=/tmp/snapfifo
+```
+### [Snapcast](https://github.com/badaix/snapcast)
 
-### Snapcast
+Snapcast consists of a server daemon, snapserver, configured to accept an audio stream via a named pipe in this case, and multiple devices running snapclient which connect to the server. The client daemon can be run locally on the server to play audio through its own hardware, and other devices will connect via the local network to the server. Either wifi or ethernet cable can be used for the Snapcast clients, and the network and processing requirements are minimal. 
 
-Snapcast consists of a server daemon, snapserver, configured to accept an audio stream via a named pipe in this case, and multiple devices running snapclient which connect to the server 
-
-https://github.com/badaix/snapcast
-
+An example snapserver configuration line in the stream section of /etc/snapserver.conf is shown below
+```
+source = pipe:///tmp/snapfifo?name=default
+```
 ### Hardware
 
+Snapclient can be configured on any device capable of installing the client application and caching and playing audio across the local network, such as a Raspberry Pi, ESP32 or mobile handset. There are also various hardware solutions for the Raspberry Pi such as the HifiBerry or 
